@@ -8,4 +8,8 @@
     <string name="enter_reps">enter_reps</string>
     <string name="enter_an_exercise">enter_an_exercise</string>
     <string name="nothing_to_show_time_to_hit_the_gym">nothing_to_show_time_to_hit_the_gym</string>
+    <string name="login_welcome">Login_Welcome</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">login</string>
 </resources>
