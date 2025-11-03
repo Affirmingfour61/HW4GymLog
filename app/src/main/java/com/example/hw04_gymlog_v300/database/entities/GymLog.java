@@ -17,23 +17,34 @@ public class GymLog {
     private int reps;
     private LocalDateTime date;
 
-    public GymLog(int reps, double weight, String exercise) {
+    private int userID;
+    public GymLog(int reps, double weight, String exercise ,int userID) {
         this.reps = reps;
         this.weight = weight;
         this.exercise = exercise;
+        this.userID=userID;
         date= LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return   exercise + '\n' +
+                ", weight=" + weight +'\n'+
+                ", reps=" + reps +'\n'+
+                ", date=" + date.toString() +'\n'+
+                "=-=-=-=-=-=\n";
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        GymLog gymLog = (GymLog) o;
-        return id == gymLog.id && Double.compare(weight, gymLog.weight) == 0 && reps == gymLog.reps && Objects.equals(exercise, gymLog.exercise) && Objects.equals(date, gymLog.date);
+        GymLog log = (GymLog) o;
+        return id == log.id && Double.compare(weight, log.weight) == 0 && reps == log.reps && userID == log.userID && Objects.equals(exercise, log.exercise) && Objects.equals(date, log.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, exercise, weight, reps, date);
+        return Objects.hash(id, exercise, weight, reps, date, userID);
     }
 
     public int getId() {
@@ -76,4 +87,11 @@ public class GymLog {
         this.exercise = exercise;
     }
 
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
 }

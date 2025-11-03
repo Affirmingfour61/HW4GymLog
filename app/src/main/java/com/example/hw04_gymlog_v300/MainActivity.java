@@ -16,6 +16,7 @@ import com.example.hw04_gymlog_v300.database.GymLogRepository;
 import com.example.hw04_gymlog_v300.database.entities.GymLog;
 import com.example.hw04_gymlog_v300.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +25,7 @@ private GymLogRepository repository;
 String mExercise="";
 double mWeight=0.0;
 int mReps=0;
+int loggedInUserId=-1;
 
 public static final String TAG= "DAC_GYMLOG";
     @Override
@@ -32,13 +34,14 @@ public static final String TAG= "DAC_GYMLOG";
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        repository=new GymLogRepository(getApplication());
+        repository=  GymLogRepository.getRepository(getApplication());
         binding.logDisplayTextView.setMovementMethod(new ScrollingMovementMethod());
+        updateDisplay();
 
         binding.logButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v){
-//                Toast.makeText(MainActivity.this,"It worked", Toast.LENGTH_SHORT).show();
+
            getInforamtionFromDisplay();
                 insertGymLogRecord();
                 updateDisplay();
@@ -46,19 +49,35 @@ public static final String TAG= "DAC_GYMLOG";
             }
         });
 
+binding.exerciseInputEditText.setOnClickListener((new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        updateDisplay();
+    }
+}));
     }
     private void insertGymLogRecord(){
-        GymLog log= new GymLog(mReps,mWeight, mExercise);
+        if(mExercise.isEmpty()){
+            return ;
+        }
+
+        GymLog log= new GymLog(mReps,mWeight, mExercise,loggedInUserId);
         repository.insertGymLog(log);
     }
 
     public void updateDisplay(){
-        String currentInfo=binding.logDisplayTextView.toString();
-        Log.d(TAG,"current info: "+currentInfo);
-        String newDisplay=String.format(Locale.US,"Exercise:%s%nWeight:%.2f%nReps:%d%n=-=-=-=%n%s",mExercise,mWeight,mReps,currentInfo);
-        binding.logDisplayTextView.setText(newDisplay);
+        ArrayList<GymLog> allLogs=repository.getAllLogs();
+        if(allLogs.isEmpty()){
+            binding.logDisplayTextView.setText(R.string.nothing_to_show_time_to_hit_the_gym);
+        }
+        StringBuilder sb= new StringBuilder();
+        for(GymLog log:allLogs){
+            sb.append(log);
+        }
 
+         binding.logDisplayTextView.setText(sb.toString());
     }
+
     private void getInforamtionFromDisplay(){
         mExercise =binding.exerciseInputEditText.getText().toString();
 

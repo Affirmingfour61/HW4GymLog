@@ -87,7 +87,7 @@
 
     <Button
         android:layout_width="390dp"
-        android:layout_height="205dp"
+        android:layout_height="125dp"
         android:text="@string/log"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
