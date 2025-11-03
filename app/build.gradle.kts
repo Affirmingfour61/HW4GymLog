@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.9.0")
 
     implementation(libs.appcompat)
     implementation(libs.material)

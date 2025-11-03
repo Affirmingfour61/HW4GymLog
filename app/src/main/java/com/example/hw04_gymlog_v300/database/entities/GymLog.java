@@ -1,11 +1,11 @@
-package com.example.hw04_gymlog_v300.Database.entities;
+package com.example.hw04_gymlog_v300.database.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.hw04_gymlog_v300.Database.GymLogDatabase;
+import com.example.hw04_gymlog_v300.database.GymLogDatabase;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity(tableName = GymLogDatabase.GYM_LOG_TABLE)
@@ -15,13 +15,13 @@ public class GymLog {
     private String exercise;
     private double weight;
     private int reps;
-    private LocalDate date;
+    private LocalDateTime date;
 
     public GymLog(int reps, double weight, String exercise) {
         this.reps = reps;
         this.weight = weight;
         this.exercise = exercise;
-        date= LocalDate.now();
+        date= LocalDateTime.now();
     }
 
     @Override
@@ -60,11 +60,11 @@ public class GymLog {
         this.reps = reps;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
